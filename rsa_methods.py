@@ -68,21 +68,3 @@ def verify_signature(private_key: rsa.RSAPrivateKey, signature: bytes, signing_m
         return False
     except Exception as E:
         print(f"some error occurred: {E}")
-
-
-keys = generate_rsa(str(sys.argv[1]))
-rsa_private_key = keys[0]
-rsa_public_key = rsa_private_key.public_key() 
-signature = keys[1] 
-ciphertext = encrypt_secret(rsa_public_key, str(sys.argv[2]))
-plaintext = decrypt_ciphertext(rsa_private_key, ciphertext)
-
-print(f"\nCiphertext: {ciphertext}\n")
-print(f"\nSignature: {signature}\n")
-
-# Correctness check
-assert(plaintext.decode() == str(sys.argv[2]))
-print(f"{plaintext.decode()} == {sys.argv[2]}")
-r = verify_signature(rsa_private_key, signature, str(sys.argv[1])),
-print(f"r: {r}")
-
